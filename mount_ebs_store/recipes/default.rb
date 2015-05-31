@@ -7,7 +7,7 @@ if mount_point
         owner deploy[:user]
         group deploy[:group]
         mode 0770
-        recursive true
+        action :create
       end
     end
 
