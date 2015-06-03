@@ -1,4 +1,4 @@
-mount_point = node['ebs']['raids']['/dev/sdi']['mount_point'] rescue nil
+mount_point = node['ebs']['raids']['/dev/xvdi']['mount_point'] rescue nil
 
 if mount_point
   node[:deploy].each do |application, deploy|
