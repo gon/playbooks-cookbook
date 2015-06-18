@@ -1,6 +1,8 @@
 mount_point = node['ebs']['raids']['/dev/xvdi']['mount_point'] rescue nil
+Chef::Log.info("Mount point is #{mount_point}")
 
 if mount_point
+  Chef::Log.info("About to Mount at #{mount_point}")
   node[:deploy].each do |application, deploy|
     unless Dir.exist? "#{mount_point}/repos"
       directory "#{mount_point}/repos" do
@@ -15,4 +17,6 @@ if mount_point
       to "#{mount_point}/repos"
     end
   end
+else 
+  Chef::Log.info("Not mounting as  #{mount_point} is ont set")
 end
