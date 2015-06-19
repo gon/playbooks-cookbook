@@ -1,3 +1,4 @@
+Chef::Log.info("About to create the `/repos` symlink to the mounted EBS volume")
 mount_point = node['ebs']['raids']['/dev/xvdi']['mount_point'] rescue nil
 Chef::Log.info("Mount point is #{mount_point}")
 
@@ -18,5 +19,5 @@ if mount_point
     end
   end
 else 
-  Chef::Log.info("Not mounting as  #{mount_point} is ont set")
+  Chef::Log.info("Not mounting as  #{mount_point} is not set")
 end
