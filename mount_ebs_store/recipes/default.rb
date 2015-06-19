@@ -1,5 +1,5 @@
 Chef::Log.info("About to create the `/repos` symlink to the mounted EBS volume")
-mount_point = node['ebs']['raids']['/dev/xvdi']['mount_point'] rescue nil
+mount_point = '/mnt/workspace' rescue nil
 Chef::Log.info("Mount point is #{mount_point}")
 
 if mount_point
