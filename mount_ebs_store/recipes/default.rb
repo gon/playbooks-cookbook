@@ -6,16 +6,24 @@ if mount_point
   Chef::Log.info("About to Mount at #{mount_point}")
   node[:deploy].each do |application, deploy|
     unless Dir.exist? "#{mount_point}/repos"
+      Chef::Log.info("#{mount_point}/repos does not exist yet")
       directory "#{mount_point}/repos" do
         owner deploy[:user]
         group deploy[:group]
         mode 0770
         action :create
       end
+    else
+      Chef::Log.info("#{mount_point}/repos already exists")
     end
-
-    link "/srv/www/#{application}/current/repos" do
-      to "#{mount_point}/repos"
+    
+    unless Dir.exist?("/srv/www/#{application}/current/repos") || File.symlink?("/srv/www/#{application}/current/repos")
+      Chef::Log.info("/srv/www/#{application}/current/repos symlink does not exist yet")
+      link "/srv/www/#{application}/current/repos" do
+        to "#{mount_point}/repos"
+      end
+    else
+      Chef::Log.info("/srv/www/#{application}/current/repos already is a folder or symlink")
     end
   end
 else 
