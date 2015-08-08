@@ -17,13 +17,15 @@ if mount_point
       Chef::Log.info("#{mount_point}/repos already exists")
     end
 
-    repos_symlink_path = "/srv/www/#{application}/current/repos"
+    application_releases_path = "/srv/www/#{application}/releases"
+    current_release_path = Dir.glob("#{application_releases_path}/*/").max_by {|f| File.mtime(f)}
+    repos_symlink_path = "#{application_dir}/#{current_release_path}/repos"
     if File.symlink? repos_symlink_path
       Chef::Log.info("#{repos_symlink_path} already is a symlink")
     else
       if Dir.exist? repos_symlink_path
-        Chef::Log.info("/srv/www/#{application}/current/repos is not a symlink but a directory, deleting it.")
-        Dir.delete("/srv/www/#{application}/current/repos")
+        Chef::Log.info("#{repos_symlink_path} is not a symlink but a directory, deleting it.")
+        Dir.delete repos_symlink_path
       end
       Chef::Log.info("#{repos_symlink_path} symlink does not exist yet")
       link repos_symlink_path do
