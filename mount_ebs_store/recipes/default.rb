@@ -16,19 +16,19 @@ if mount_point
     else
       Chef::Log.info("#{mount_point}/repos already exists")
     end
-    
-    if Dir.exist?("/srv/www/#{application}/current/repos")
-      Chef::Log.info("/srv/www/#{application}/current/repos directory exists, deleting it.")
-      Dir.delete("/srv/www/#{application}/current/repos")
-    end
 
-    unless File.symlink?("/srv/www/#{application}/current/repos")
-      Chef::Log.info("/srv/www/#{application}/current/repos symlink does not exist yet")
-      link "/srv/www/#{application}/current/repos" do
+    repos_symlink_path = "/srv/www/#{application}/current/repos"
+    if File.symlink? repos_symlink_path
+      Chef::Log.info("#{repos_symlink_path} already is a symlink")
+    else
+      if Dir.exist? repos_symlink_path
+        Chef::Log.info("/srv/www/#{application}/current/repos is not a symlink but a directory, deleting it.")
+        Dir.delete("/srv/www/#{application}/current/repos")
+      end
+      Chef::Log.info("#{repos_symlink_path} symlink does not exist yet")
+      link repos_symlink_path do
         to "#{mount_point}/repos"
       end
-    else
-      Chef::Log.info("/srv/www/#{application}/current/repos already is a folder or symlink")
     end
   end
 else 
