@@ -1,6 +1,6 @@
 [submodule "redis"]
 	path = redis
 	url = https://github.com/brianbianco/redisio
-[submodule "chef-ulimit"]
-	path = chef-ulimit
+[submodule "ulimit"]
+	path = ulimit
 	url = https://github.com/bmhatfield/chef-ulimit
