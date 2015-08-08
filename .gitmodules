@@ -1,9 +1,9 @@
-[submodule "redis"]
-	path = redis
-	url = https://github.com/brianbianco/redisio
 [submodule "ulimit"]
 	path = ulimit
 	url = https://github.com/bmhatfield/chef-ulimit
 [submodule "build-essential"]
 	path = build-essential
 	url = https://github.com/opscode-cookbooks/build-essential.git
+[submodule "redisio"]
+	path = redisio
+	url = https://github.com/brianbianco/redisio.git
