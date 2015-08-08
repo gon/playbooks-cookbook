@@ -19,7 +19,7 @@ if mount_point
 
     application_releases_path = "/srv/www/#{application}/releases"
     current_release_path = Dir.glob("#{application_releases_path}/*/").max_by {|f| File.mtime(f)}
-    Chef::Log.info("current release dir is #{current_release_dir}")
+    Chef::Log.info("current release dir is #{current_release_path}")
     repos_symlink_path = "#{current_release_path}repos"
     Chef::Log.info("current repos synlink path is #{repos_symlink_path}")
     if File.symlink? repos_symlink_path
