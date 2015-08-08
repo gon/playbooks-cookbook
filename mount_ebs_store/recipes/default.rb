@@ -18,9 +18,9 @@ if mount_point
     end
 
     application_releases_path = "/srv/www/#{application}/releases"
-    current_release_dir = Dir.glob("#{application_releases_path}/*/").max_by {|f| File.mtime(f)}
+    current_release_path = Dir.glob("#{application_releases_path}/*/").max_by {|f| File.mtime(f)}
     Chef::Log.info("current release dir is #{current_release_dir}")
-    repos_symlink_path = "#{application_releases_path}/#{current_release_dir}/repos"
+    repos_symlink_path = "#{current_release_path}repos"
     Chef::Log.info("current repos synlink path is #{repos_symlink_path}")
     if File.symlink? repos_symlink_path
       Chef::Log.info("#{repos_symlink_path} already is a symlink")
