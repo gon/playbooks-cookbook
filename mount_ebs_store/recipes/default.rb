@@ -33,6 +33,11 @@ if mount_point
       link repos_symlink_path do
         to "#{mount_point}/repos"
       end
+      if File.symlink? repos_symlink_path
+        Chef::Log.info("#{repos_symlink_path} symlink created")
+      else
+        Chef::Log.info("#{repos_symlink_path} symlink creation failed")
+      end
     end
   end
 else 
