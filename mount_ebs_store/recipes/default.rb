@@ -1,3 +1,5 @@
+require 'fileutils'
+
 Chef::Log.info("About to create the `/repos` symlink to the mounted EBS volume")
 mount_point = '/mnt/workspace' rescue nil
 Chef::Log.info("Mount point is #{mount_point}")
@@ -27,7 +29,7 @@ if mount_point
     else
       if Dir.exist? repos_symlink_path
         Chef::Log.info("#{repos_symlink_path} is not a symlink but a directory, deleting it.")
-        Dir.delete repos_symlink_path
+        FileUtils.rm_r repos_symlink_path
       end
       Chef::Log.info("#{repos_symlink_path} symlink does not exist yet")
       link repos_symlink_path do
